@@ -129,7 +129,7 @@ final class-discriminative connections that the sparsity loss cannot overcome at
 The previous implementation attempts failed because of a subtle interaction between
 weight decay and gate gradient dynamics. Three fixes were necessary simultaneously:
 
-### Fix 1 — Separate gate_scores into their own optimiser with weight_decay=0
+### Analysis-1: Separate gate_scores into their own optimiser with weight_decay=0
 ```python
 weight_params = [p for n, p in model.named_parameters() if 'gate_scores' not in n]
 gate_params   = [p for n, p in model.named_parameters() if 'gate_scores' in n]
@@ -138,7 +138,7 @@ weight_optimizer = optim.SGD(weight_params, lr=0.1, weight_decay=5e-4, ...)
 gate_optimizer   = optim.SGD(gate_params,   lr=0.3, weight_decay=0.0, ...)
 ```
 
-### Fix 2 — Lambda warmup over 20 epochs
+### Analysis-2: Lambda warmup over 20 epochs
 ```python
 warmup_frac      = min(1.0, (epoch - 1) / warmup_epochs)
 effective_lambda = lambda_s * warmup_frac
@@ -146,12 +146,12 @@ effective_lambda = lambda_s * warmup_frac
 This lets the network develop strong classification gradients before sparsity
 pressure activates, so important gates have enough signal to resist pruning.
 
-### Fix 3 — Higher gate learning rate (3× base)
+### Analysis-3: Higher gate learning rate (3× base)
 Gate scores need to traverse a larger range than weights (from +2.0 to < -4.6 to
 push gates below 0.01). A 3× higher LR compensates for this without destabilising
 weight training, since the two parameters are optimised independently.
 
-### Fix 4 — gate_init = 2.0
+### Analysis-4: gate_init = 2.0
 Starting at sigmoid(2.0) = 0.88 rather than sigmoid(0.0) = 0.5 breaks the
 symmetry that previously caused gates to freeze. See Section 1 for details.
 
