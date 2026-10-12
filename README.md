@@ -1,5 +1,10 @@
 # Self-Pruning Neural Network on CIFAR-10
 
+![Python](https://img.shields.io/badge/Python-3-3776AB?style=flat-square&logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)
+![Dataset](https://img.shields.io/badge/CIFAR--10-2c5364?style=flat-square)
+![Case study](https://img.shields.io/badge/Tredence%20AI%20Engineering-2c9fbf?style=flat-square)
+
 A PyTorch implementation of a neural network that learns to remove its own weights
 during training. Instead of pruning being a separate post-training step, every weight
 has a paired learnable gate that the optimizer drives toward zero throughout the
@@ -7,7 +12,7 @@ training process. The result is a sparse network whose accuracy is determined by
 aggressively pruning is applied.
 
 This project was submitted as the case study for the Tredence Studio AI Engineering
-Internship — 2025 Cohort.
+Internship, 2025 cohort.
 
 ---
 
@@ -81,7 +86,7 @@ pressure and the gate stays close to one.
 
 **Why L1 rather than L2?** An L2 penalty on gate values has a gradient proportional
 to the gate value itself. As a gate approaches zero, the L2 gradient also approaches
-zero — the penalty weakens exactly when you need it most. The L1 gradient decays
+zero, so the penalty weakens exactly when you need it most. The L1 gradient decays
 more slowly and provides a stronger push toward zero throughout training.
 
 **Why is weight decay removed from `gate_scores`?** Standard SGD with weight decay
@@ -193,3 +198,7 @@ gradient, ensuring gates converge on a similar timescale as the weights.
 ## License
 
 This repository is submitted as part of a technical internship assessment.
+
+---
+
+<sub>Built by [Aryan Awasthi](https://github.com/Techy-A). ENC @ Thapar Institute of Engineering and Technology.</sub>
