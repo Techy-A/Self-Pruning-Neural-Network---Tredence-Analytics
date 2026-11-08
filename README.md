@@ -1,9 +1,10 @@
-# Self-Pruning Neural Network on CIFAR-10
+<p align="center">
+  <img src="./assets/readme/hero.svg" width="100%" alt="Self-Pruning Neural Network: every weight has a learnable gate that training drives toward zero, so a CIFAR-10 network removes its own weights.">
+</p>
 
-![Python](https://img.shields.io/badge/Python-3-3776AB?style=flat-square&logo=python&logoColor=white)
-![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)
-![Dataset](https://img.shields.io/badge/CIFAR--10-2c5364?style=flat-square)
-![Case study](https://img.shields.io/badge/Tredence%20AI%20Engineering-2c9fbf?style=flat-square)
+<p align="center">
+  <a href="#the-core-idea"><b>Core idea</b></a> &nbsp;·&nbsp; <a href="#how-to-run"><b>How to run</b></a>
+</p>
 
 A PyTorch implementation of a neural network that learns to remove its own weights
 during training. Instead of pruning being a separate post-training step, every weight
